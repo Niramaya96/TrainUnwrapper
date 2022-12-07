@@ -1,18 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Rigidbody _rigidbody;
+
+    private void Awake()
     {
-        
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        float rotateSpeed = Input.GetAxis("Horizontal");
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            Rotate(rotateSpeed);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            Rotate(rotateSpeed);
+        }
+    }
+
+    private void Rotate(float rotateSpeed)
+    {
+        Vector3 resEuler = transform.eulerAngles + new Vector3(0f,rotateSpeed,0f);
+
+        _rigidbody.MoveRotation(Quaternion.Euler(resEuler));
     }
 }
